@@ -121,15 +121,16 @@ namespace a_player
             
             var player = Helpers.GetPlayer();
 
-            player.PlayerInput.Vertical.Returns(1f);
             
             Item item = Object.FindObjectOfType<Item>();
-
-
+            
             Assert.AreNotSame(item, player.GetComponent<Inventory>().ActiveItem);
 
+            
+            player.PlayerInput.Vertical.Returns(1f);
 
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(3f);
+            
 
 
             Assert.AreSame(item, player.GetComponent<Inventory>().ActiveItem);
