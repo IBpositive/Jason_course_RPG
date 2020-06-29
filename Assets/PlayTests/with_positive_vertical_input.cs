@@ -111,7 +111,7 @@ namespace a_player
             Assert.Greater(turnAmount, 0);
         }
     }
-/*
+
     public class moving_into_an_item
     {
         [UnityTest]
@@ -135,5 +135,4 @@ namespace a_player
             Assert.AreSame(item, player.GetComponent<Inventory>().ActiveItem);
         }
     }
-    */
 }
