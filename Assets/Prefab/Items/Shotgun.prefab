@@ -60,6 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b5da02a144b6d248aa924d5e95a04a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _crosshairMode: 0
   _actions:
   - UseMode: 0
     TargetComponent: {fileID: 4823126436489757884}

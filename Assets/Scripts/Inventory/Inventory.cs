@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -6,11 +7,14 @@ using UnityEngine;
 /// </summary>
 public class Inventory : MonoBehaviour
 {
+    public event Action<Item> ActiveItemChanged;
+
+
     [SerializeField] private Transform _rightHand;
-    
+
     private List<Item> _items = new List<Item>();
     private Transform _itemRoot;
-    
+
     public Item ActiveItem { get; private set; }
 
     // We make the awake to initialize _item and _itemRoot.
@@ -35,5 +39,8 @@ public class Inventory : MonoBehaviour
         item.transform.localPosition = Vector3.zero;
         item.transform.localRotation = Quaternion.identity;
         ActiveItem = item;
+        // if active item is not null then invoke
+        // ? is making a null propagation method
+        ActiveItemChanged?.Invoke(ActiveItem);
     }
 }

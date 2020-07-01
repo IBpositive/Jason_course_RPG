@@ -132,8 +132,9 @@ GameObject:
   - component: {fileID: 13937931}
   - component: {fileID: 13937933}
   - component: {fileID: 13937932}
+  - component: {fileID: 13937934}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Crosshair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -156,7 +157,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 64, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &13937932
 MonoBehaviour:
@@ -195,6 +196,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 13937930}
   m_CullTransparentMesh: 0
+--- !u!114 &13937934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 13937930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76f766239da0a054a8939fe3be45b6da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _crosshairImage: {fileID: 13937932}
+  _gunSprite: {fileID: 21300000, guid: ee62e695f5965a54ea24825616bd9737, type: 3}
+  _invalidSprite: {fileID: 21300000, guid: ebee8e26c7c04b445a68c68b3885db93, type: 3}
 --- !u!1 &177441050
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,7 +386,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1350577004}
   - component: {fileID: 1350577003}
-  - component: {fileID: 1350577002}
   m_Layer: 0
   m_Name: UI Camera
   m_TagString: Untagged
@@ -378,14 +393,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1350577002
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1350577001}
-  m_Enabled: 1
 --- !u!20 &1350577003
 Camera:
   m_ObjectHideFlags: 0
