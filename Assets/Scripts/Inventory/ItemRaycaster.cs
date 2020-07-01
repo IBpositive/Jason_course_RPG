@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿// 6d
+
+using UnityEngine;
 
 public class ItemRaycaster : ItemComponent
 {
@@ -19,11 +21,27 @@ public class ItemRaycaster : ItemComponent
         Ray ray = Camera.main.ViewportPointToRay(Vector3.one / 2f);
         int hits = Physics.RaycastNonAlloc(ray, _results, _range, _layermask, QueryTriggerInteraction.Collide);
 
+        RaycastHit nearest = new RaycastHit();
+        double nearestDistance = double.MaxValue;
+
+
         for (int i = 0; i < hits; i++)
         {
-            Transform hitCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            hitCube.localScale = Vector3.one * 0.1f;
-            hitCube.position = _results[i].point;
+            var distance = Vector3.Distance(transform.position, _results[i].point);
+            if (distance < nearestDistance)
+            {
+                nearest = _results[i];
+                nearestDistance = distance;
+            }
         }
+
+        if (nearest.transform != null)
+        {
+            Transform hitCube = GameObject.CreatePrimitive(PrimitiveType.Cube).transform;
+            hitCube.localScale = Vector3.one * 0.1f;
+            hitCube.position = nearest.point;
+        }
+
+
     }
 }
