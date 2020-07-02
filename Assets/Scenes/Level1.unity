@@ -319,7 +319,7 @@ PrefabInstance:
     - target: {fileID: 6972201354589814103, guid: 1e5065ecb8344df479270855deafd079,
         type: 3}
       propertyPath: m_Name
-      value: Shotgun (1)
+      value: Shotgun-2
       objectReference: {fileID: 0}
     - target: {fileID: 7351451092158623587, guid: 1e5065ecb8344df479270855deafd079,
         type: 3}
@@ -331,6 +331,12 @@ PrefabInstance:
       propertyPath: _actions.Array.data[0].UseMode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7351451092158623587, guid: 1e5065ecb8344df479270855deafd079,
+        type: 3}
+      propertyPath: _crosshairDefinition
+      value: 
+      objectReference: {fileID: 11400000, guid: 90c39284949105d4f8283210ccc51cf4,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e5065ecb8344df479270855deafd079, type: 3}
 --- !u!1 &705507993
@@ -638,6 +644,12 @@ PrefabInstance:
       propertyPath: _crosshairMode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7351451092158623587, guid: 1e5065ecb8344df479270855deafd079,
+        type: 3}
+      propertyPath: _crosshairDefinition
+      value: 
+      objectReference: {fileID: 11400000, guid: 21743ee4f0fe25244a25e6338beae04e,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e5065ecb8344df479270855deafd079, type: 3}
 --- !u!1001 &9171320373991744106
