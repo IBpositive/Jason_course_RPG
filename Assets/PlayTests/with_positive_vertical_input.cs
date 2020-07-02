@@ -16,7 +16,20 @@ namespace a_player
             while (operation.isDone == false) 
                 yield return null;
         }
-
+        
+        public static IEnumerator LoadItemTestScene()
+        {
+            var operation = SceneManager.LoadSceneAsync("ItemTests");
+            while (operation.isDone == false) 
+                yield return null;
+            
+            // LoadSceneMode.Additive will add the scene along with w/e else is there
+            // Sort of like having multiple scenes in section 7
+            operation = SceneManager.LoadSceneAsync("UI",LoadSceneMode.Additive);
+            while (operation.isDone == false) 
+                yield return null;
+        }
+        
         public static Player GetPlayer()
         {
             Player player = GameObject.FindObjectOfType<Player>();
@@ -109,31 +122,6 @@ namespace a_player
 
             float turnAmount = Helpers.CalculateTurn(originalRotation, player.transform.rotation);
             Assert.Greater(turnAmount, 0);
-        }
-    }
-
-    public class moving_into_an_item
-    {
-        [UnityTest]
-        public IEnumerator picks_up_and_equips_item()
-        {
-            yield return Helpers.LoadMovementTestScene();
-            
-            var player = Helpers.GetPlayer();
-
-            
-            Item item = Object.FindObjectOfType<Item>();
-            
-            Assert.AreNotSame(item, player.GetComponent<Inventory>().ActiveItem);
-
-            
-            player.PlayerInput.Vertical.Returns(1f);
-
-            yield return new WaitForSeconds(3f);
-            
-
-
-            Assert.AreSame(item, player.GetComponent<Inventory>().ActiveItem);
         }
     }
 }
