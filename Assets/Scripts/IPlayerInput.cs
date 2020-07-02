@@ -2,7 +2,7 @@
 public interface IPlayerInput
 {
     event Action<int> HotkeyPressed;
-    //event Action<int> MovementTypeSwitch;
+    event Action MoveModeTogglePressed;
 
     float Vertical { get; }
     float Horizontal { get; }

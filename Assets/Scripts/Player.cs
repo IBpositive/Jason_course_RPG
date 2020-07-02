@@ -13,17 +13,26 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         _characterController = GetComponent<CharacterController>();
-        _mover = new Mover(player: this);
+        _mover = new Mover( this);
         _rotator = new Rotator(this);
+
+        PlayerInput.MoveModeTogglePressed += MoveModeTogglePressed;
+    }
+
+    private void MoveModeTogglePressed()
+    {
+        if (_mover is NavmeshMover)
+        {
+            _mover = new Mover(this);
+        }
+        else
+        {
+            _mover = new NavmeshMover(this);
+        }
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown((KeyCode.Keypad1)))
-            _mover = new Mover(this);
-        if (Input.GetKeyDown((KeyCode.Keypad2)))
-            _mover = new NavmeshMover(this);
-
         _mover.Tick();
         _rotator.Tick();
         PlayerInput.Tick();

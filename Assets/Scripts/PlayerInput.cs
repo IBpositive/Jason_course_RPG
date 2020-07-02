@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerInput : IPlayerInput
 {
     public event Action<int> HotkeyPressed;
-    //public event Action<int> MovementTypeSwitch;
+    public event Action MoveModeTogglePressed;
 
 
     public float Vertical => Input.GetAxis("Vertical");
@@ -13,6 +13,10 @@ public class PlayerInput : IPlayerInput
     
     public void Tick()
     {
+        if (MoveModeTogglePressed != null && Input.GetKeyDown(KeyCode.Minus))
+        {
+            MoveModeTogglePressed();
+        }
         if (HotkeyPressed == null)
         {
             return;
