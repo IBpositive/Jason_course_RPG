@@ -347,7 +347,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _crosshairDefinition
       value: 
-      objectReference: {fileID: 11400000, guid: 90c39284949105d4f8283210ccc51cf4,
+      objectReference: {fileID: 11400000, guid: 71ae60733dbe0a746b98c3f7fb3f67d4,
         type: 2}
     - target: {fileID: 7351451092158623587, guid: 1e5065ecb8344df479270855deafd079,
         type: 3}
@@ -780,7 +780,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _icon
       value: 
-      objectReference: {fileID: 21300000, guid: a7185244a8d40d4409f153723cd3ae2d,
+      objectReference: {fileID: 21300000, guid: fff910e9fc6cf2741893c38447fffa3b,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e5065ecb8344df479270855deafd079, type: 3}

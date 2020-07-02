@@ -13,22 +13,19 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         _characterController = GetComponent<CharacterController>();
-        _mover = new Mover(player:this);
+        _mover = new Mover(player: this);
         _rotator = new Rotator(this);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown((KeyCode.Alpha1)))
+        if (Input.GetKeyDown((KeyCode.Keypad1)))
             _mover = new Mover(this);
-        if (Input.GetKeyDown((KeyCode.Alpha2)))
+        if (Input.GetKeyDown((KeyCode.Keypad2)))
             _mover = new NavmeshMover(this);
-        
-    _mover.Tick();
-    _rotator.Tick();
+
+        _mover.Tick();
+        _rotator.Tick();
+        PlayerInput.Tick();
     }
-
-
-
-
 }
