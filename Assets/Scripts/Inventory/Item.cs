@@ -29,6 +29,11 @@ public class Item : MonoBehaviour
     private void OnValidate()
     {
         var collider = GetComponent<Collider>();
-        collider.isTrigger = true;
+        // the if statement is to avoid an UI bug in unity 
+        // Jason talks about it in 8f of the game architecture course.
+        if (collider.isTrigger == false)
+        {
+            collider.isTrigger = true;
+        }
     }
 }

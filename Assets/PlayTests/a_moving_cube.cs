@@ -15,7 +15,7 @@ namespace Tests
         {
             var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
             cube.transform.position = Vector3.zero;
-            var rotation_save = 0.0f;
+            //var rotation_save = 0.0f;
             
             /*
             for (int i = 0; i < 10; i++)
