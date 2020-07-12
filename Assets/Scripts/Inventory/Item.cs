@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
@@ -51,7 +52,7 @@ public class ItemEditor : Editor
 
         DrawCrosshair(item);
 
-        DrawActions();
+        DrawActions(item);
 
         // uncomment this line to see the normal GUI for this script.
         //base.OnInspectorGUI();
@@ -112,7 +113,7 @@ public class ItemEditor : Editor
         EditorGUILayout.EndHorizontal();
     }
 
-    private void DrawActions()
+    private void DrawActions(Item item)
     {
         using (var actionsProperty = serializedObject.FindProperty("_actions"))
         {
@@ -142,6 +143,35 @@ public class ItemEditor : Editor
                 }
 
                 EditorGUILayout.EndHorizontal();
+            }
+
+            if (GUILayout.Button("Auto Assign Actions"))
+            {
+                List<ItemComponent> assignedItemComponents = new List<ItemComponent>();
+                for (int i = 0; i < actionsProperty.arraySize; i++)
+                {
+                    var action = actionsProperty.GetArrayElementAtIndex(i);
+                    if (action != null)
+                    {
+                        var targetComponentProperty = action.FindPropertyRelative("TargetComponent");
+                        var assignedItemComponent = targetComponentProperty.objectReferenceValue as ItemComponent;
+                        assignedItemComponents.Add(assignedItemComponent);
+                    }
+                }
+
+                foreach (var itemComponent in item.GetComponentsInChildren<ItemComponent>())
+                {
+                    if (assignedItemComponents.Contains(itemComponent))
+                    {
+                        continue;
+                    }
+                    
+                    actionsProperty.InsertArrayElementAtIndex(actionsProperty.arraySize);
+                    var action = actionsProperty.GetArrayElementAtIndex(actionsProperty.arraySize - 1);
+                    var targetComponentProperty = action.FindPropertyRelative("TargetComponent");
+                    targetComponentProperty.objectReferenceValue = itemComponent;
+                    serializedObject.ApplyModifiedProperties();
+                }
             }
         }
     }
