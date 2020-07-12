@@ -47,6 +47,18 @@ public class ItemEditor : Editor
         Item item = (Item) target;
 
 
+        DrawIcon(item);
+
+        DrawCrosshair(item);
+
+        DrawActions();
+
+        // uncomment this line to see the normal GUI for this script.
+        //base.OnInspectorGUI();
+    }
+
+    private void DrawIcon(Item item)
+    {
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Icon", GUILayout.Width(150));
 
@@ -69,7 +81,10 @@ public class ItemEditor : Editor
 
 
         EditorGUILayout.EndHorizontal();
+    }
 
+    private void DrawCrosshair(Item item)
+    {
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Crosshair", GUILayout.Width(150));
 
@@ -95,7 +110,39 @@ public class ItemEditor : Editor
 
 
         EditorGUILayout.EndHorizontal();
+    }
 
-        base.OnInspectorGUI();
+    private void DrawActions()
+    {
+        using (var actionsProperty = serializedObject.FindProperty("_actions"))
+        {
+            for (int i = 0; i < actionsProperty.arraySize; i++)
+            {
+                EditorGUILayout.BeginHorizontal();
+                if (GUILayout.Button("x", GUILayout.Width(20)))
+                {
+                    actionsProperty.DeleteArrayElementAtIndex(i);
+                    serializedObject.ApplyModifiedProperties();
+                    break;
+                }
+
+                var action = actionsProperty.GetArrayElementAtIndex(i);
+                if (action != null)
+                {
+                    var useModeProperty = action.FindPropertyRelative("UseMode");
+                    var targetComponentProperty = action.FindPropertyRelative("TargetComponent");
+
+                    useModeProperty.enumValueIndex = (int) (UseMode) EditorGUILayout.EnumPopup(
+                        (UseMode) useModeProperty.enumValueIndex,
+                        GUILayout.Width(80));
+
+                    EditorGUILayout.PropertyField(targetComponentProperty, GUIContent.none, false);
+
+                    serializedObject.ApplyModifiedProperties();
+                }
+
+                EditorGUILayout.EndHorizontal();
+            }
+        }
     }
 }
