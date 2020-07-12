@@ -46,9 +46,55 @@ public class ItemEditor : Editor
     {
         Item item = (Item) target;
 
-        EditorGUILayout.LabelField("Custom Item Editor");
-        GUILayout.Box(item.Icon.texture, GUILayout.Width(60), GUILayout.Height(60));
-        
+
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Icon", GUILayout.Width(150));
+
+        if (item.Icon != null)
+        {
+            GUILayout.Box(item.Icon.texture, GUILayout.Width(60), GUILayout.Height(60));
+        }
+        else
+        {
+            EditorGUILayout.HelpBox("No Icon Selected", MessageType.Error);
+        }
+
+        // this lets us reuse this code multiple times without copy/paste i think.
+        using (var property = serializedObject.FindProperty("_icon"))
+        {
+            var sprite = (Sprite) EditorGUILayout.ObjectField(item.Icon, typeof(Sprite), false);
+            property.objectReferenceValue = sprite;
+            serializedObject.ApplyModifiedProperties();
+        }
+
+
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Crosshair", GUILayout.Width(150));
+
+        if (item.CrosshairDefinition?.Sprite != null)
+        {
+            GUILayout.Box(item.CrosshairDefinition.Sprite.texture, GUILayout.Width(60), GUILayout.Height(60));
+        }
+        else
+        {
+            EditorGUILayout.HelpBox("No Crosshair Selected", MessageType.Error);
+        }
+
+        // this lets us reuse this code multiple times without copy/paste i think.
+        using (var property = serializedObject.FindProperty("_crosshairDefinition"))
+        {
+            var crosshairDefinition = (CrosshairDefinition) EditorGUILayout.ObjectField(
+                item.CrosshairDefinition,
+                typeof(CrosshairDefinition),
+                false);
+            property.objectReferenceValue = crosshairDefinition;
+            serializedObject.ApplyModifiedProperties();
+        }
+
+
+        EditorGUILayout.EndHorizontal();
 
         base.OnInspectorGUI();
     }
