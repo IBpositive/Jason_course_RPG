@@ -6,6 +6,8 @@ public class ItemRaycaster : ItemComponent
 {
     [SerializeField] private float _delay = 0.1f;
     [SerializeField] private float _range = 10f;
+    [SerializeField] private int _damage = 1;
+
     private RaycastHit[] _results = new RaycastHit[10];
     private int _layermask;
 
@@ -37,9 +39,8 @@ public class ItemRaycaster : ItemComponent
 
         if (nearest.transform != null)
         {
-            Transform hitCube = GameObject.CreatePrimitive(PrimitiveType.Cube).transform;
-            hitCube.localScale = Vector3.one * 0.1f;
-            hitCube.position = nearest.point;
+            var takeHits = nearest.collider.GetComponent<ITakeHits>();
+            takeHits?.TakeHit(_damage);
         }
 
 

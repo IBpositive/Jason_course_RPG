@@ -1,18 +1,36 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Entity : MonoBehaviour
+public class Entity : MonoBehaviour, ITakeHits
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private int _maxHealth = 5;
+
+    public int Health { get; private set; }
+
+    private void OnEnable()
     {
-        
+        Health = _maxHealth;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void TakeHit(int amount)
     {
-        
+        Health -= amount;
+        if (Health <= 0)
+        {
+            Die();
+        }
+        else
+        {
+            HandleNonLeathalHit();
+        }
+    }
+
+    private void HandleNonLeathalHit()
+    {
+        Debug.Log("Took non-lethal damage");
+    }
+
+    private void Die()
+    {
+        Debug.Log("Died");
     }
 }
