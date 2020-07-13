@@ -120,7 +120,7 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: 5baa58976f48ae94e8bc3a5a064b6d49, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: f2c9ce5811dc15e4a93ff1020f1c5f0e, type: 2}
 --- !u!1 &133974392
 GameObject:
   m_ObjectHideFlags: 0
@@ -610,6 +610,7 @@ GameObject:
   - component: {fileID: 1734795325}
   - component: {fileID: 1734795328}
   - component: {fileID: 1734795329}
+  - component: {fileID: 1734795330}
   m_Layer: 0
   m_Name: NPC
   m_TagString: Untagged
@@ -651,14 +652,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1734795324}
-  m_LocalRotation: {x: -0, y: 0.67413396, z: -0, w: 0.73860914}
-  m_LocalPosition: {x: -4.1553774, y: 0.050000012, z: 2.603969}
+  m_LocalRotation: {x: -0, y: 0.9996512, z: -0, w: 0.02641137}
+  m_LocalPosition: {x: 6.098338, y: 0.050000012, z: 9.321721}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1677817689}
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 176.973, z: 0}
 --- !u!114 &1734795328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -683,6 +684,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bbd5452c48546a0863aa138d907fa1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!195 &1734795330
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1734795324}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1001 &1977869673
 PrefabInstance:
   m_ObjectHideFlags: 0
