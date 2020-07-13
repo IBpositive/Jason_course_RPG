@@ -10,11 +10,13 @@ namespace a_player
 {
     public static class Helpers
     {
-        public static IEnumerator LoadMovementTestScene()
+        public static IEnumerator LoadMovementTestsScene()
         {
             var operation = SceneManager.LoadSceneAsync("MovementTest");
             while (operation.isDone == false) 
                 yield return null;
+            
+            
         }
         
         public static IEnumerator LoadItemTestScene()
@@ -26,6 +28,13 @@ namespace a_player
             // LoadSceneMode.Additive will add the scene along with w/e else is there
             // Sort of like having multiple scenes in section 7
             operation = SceneManager.LoadSceneAsync("UI",LoadSceneMode.Additive);
+            while (operation.isDone == false) 
+                yield return null;
+        }
+        
+        public static IEnumerator LoadEntityStateTestScene()
+        {
+            var operation = SceneManager.LoadSceneAsync("EntityStateMachineTests");
             while (operation.isDone == false) 
                 yield return null;
         }
@@ -45,6 +54,8 @@ namespace a_player
             var dot = Vector3.Dot(cross, Vector3.up);
             return dot;
         }
+
+
     }
     
     public class with_positive_vertical_input
@@ -52,7 +63,7 @@ namespace a_player
         [UnityTest]
         public IEnumerator moves_forward()
         {
-           yield return Helpers.LoadMovementTestScene();
+           yield return Helpers.LoadMovementTestsScene();
 
            var player = Helpers.GetPlayer();
             
@@ -73,7 +84,7 @@ namespace a_player
         [UnityTest]
         public IEnumerator moves_forward()
         {
-            yield return Helpers.LoadMovementTestScene();
+            yield return Helpers.LoadMovementTestsScene();
 
             var player = Helpers.GetPlayer();
             
@@ -94,7 +105,7 @@ namespace a_player
         [UnityTest]
         public IEnumerator turns_left()
         {
-            yield return Helpers.LoadMovementTestScene();
+            yield return Helpers.LoadMovementTestsScene();
             var player = Helpers.GetPlayer();
 
             player.PlayerInput.MouseX.Returns(-1f);
@@ -112,7 +123,7 @@ namespace a_player
         [UnityTest]
         public IEnumerator turns_left()
         {
-            yield return Helpers.LoadMovementTestScene();
+            yield return Helpers.LoadMovementTestsScene();
             var player = Helpers.GetPlayer();
 
             player.PlayerInput.MouseX.Returns(1f);
