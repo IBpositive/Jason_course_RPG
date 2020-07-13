@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Entity : MonoBehaviour, ITakeHits
 {
     [SerializeField] private int _maxHealth = 5;
+    public Action OnDied;
 
     public int Health { get; private set; }
 
@@ -31,6 +33,7 @@ public class Entity : MonoBehaviour, ITakeHits
 
     private void Die()
     {
+        OnDied?.Invoke();
         Debug.Log("Died");
     }
 }
