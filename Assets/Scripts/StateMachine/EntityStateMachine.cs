@@ -6,6 +6,7 @@ public class EntityStateMachine : MonoBehaviour
 {
     private StateMachine _stateMachine;
     private NavMeshAgent _navMeshAgent;
+    private Entity _entity;
 
     public Type CurrentStateType => _stateMachine.CurrentState.GetType();
 
@@ -13,12 +14,14 @@ public class EntityStateMachine : MonoBehaviour
     {
         var player = FindObjectOfType<Player>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
+        _entity = GetComponent<Entity>();
 
         _stateMachine = new StateMachine();
 
         var idle = new Idle();
         var chasePlayer = new ChasePlayer(_navMeshAgent);
         var attack = new Attack();
+        var dead = new Dead();
 
         _stateMachine.Add(idle);
         _stateMachine.Add(chasePlayer);
@@ -34,6 +37,8 @@ public class EntityStateMachine : MonoBehaviour
             chasePlayer,
             attack,
             () => DistanceFlat(_navMeshAgent.transform.position, player.transform.position) < 2f);
+        
+        _stateMachine.AddAnyTransition(dead,() => _entity.Health <= 0);
 
         _stateMachine.SetState(idle);
     }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using a_player;
 using NUnit.Framework;
 using UnityEngine;
@@ -16,24 +17,45 @@ namespace state_machine
             // we can't access the specific state machies, so that's why we have this CurrentStateType
             Assert.AreEqual(typeof(Idle), stateMachine.CurrentStateType);
         }
-        
+
         [UnityTest]
         public IEnumerator switches_to_chase_player_state_when_in_chase_range()
         {
             yield return Helpers.LoadEntityStateTestScene();
 
             var player = Helpers.GetPlayer();
-            
+
             var stateMachine = GameObject.FindObjectOfType<EntityStateMachine>();
             // we can't access the specific state machies, so that's why we have this CurrentStateType
-            
+
             player.transform.position = stateMachine.transform.position + new Vector3(5.1f, 0, 0);
             yield return null;
             Assert.AreEqual(typeof(Idle), stateMachine.CurrentStateType);
             player.transform.position = stateMachine.transform.position + new Vector3(4.9f, 0, 0);
             yield return null;
             Assert.AreEqual(typeof(ChasePlayer), stateMachine.CurrentStateType);
+        }
 
+        [UnityTest]
+        public IEnumerator switches_to_dead_only_once_health_reaches_zero()
+        {
+            yield return Helpers.LoadEntityStateTestScene();
+
+            var player = Helpers.GetPlayer();
+
+            var stateMachine = GameObject.FindObjectOfType<EntityStateMachine>();
+            var entity = stateMachine.GetComponent<Entity>();
+
+            yield return null;
+            Assert.AreEqual(typeof(Idle), stateMachine.CurrentStateType);
+
+            entity.TakeHit(entity.Health - 1);
+            yield return null;
+            Assert.AreEqual(typeof(Idle), stateMachine.CurrentStateType);
+
+            entity.TakeHit(entity.Health);
+            yield return null;
+            Assert.AreEqual(typeof(Dead), stateMachine.CurrentStateType);
         }
     }
 }
