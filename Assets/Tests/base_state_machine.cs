@@ -12,7 +12,6 @@ namespace Tests
         {
             var stateMachine = new StateMachine();
             IState firstState = Substitute.For<IState>();
-            stateMachine.Add(firstState);
             stateMachine.SetState(firstState);
 
             Assert.AreSame(firstState, stateMachine.CurrentState);
@@ -24,9 +23,6 @@ namespace Tests
             var stateMachine = new StateMachine();
             IState firstState = Substitute.For<IState>();
             IState secondState = Substitute.For<IState>();
-
-            stateMachine.Add(firstState);
-            stateMachine.Add(secondState);
 
             stateMachine.SetState(firstState);
             Assert.AreSame(firstState, stateMachine.CurrentState);
@@ -41,9 +37,6 @@ namespace Tests
             var stateMachine = new StateMachine();
             IState firstState = Substitute.For<IState>();
             IState secondState = Substitute.For<IState>();
-
-            stateMachine.Add(firstState);
-            stateMachine.Add(secondState);
 
             // local method/function
             bool ShouldTransitionState() => true;
@@ -63,9 +56,6 @@ namespace Tests
             IState firstState = Substitute.For<IState>();
             IState secondState = Substitute.For<IState>();
 
-            stateMachine.Add(firstState);
-            stateMachine.Add(secondState);
-
             // local method/function
             bool ShouldTransitionState() => false;
             stateMachine.AddTransition(firstState, secondState, ShouldTransitionState);
@@ -78,14 +68,30 @@ namespace Tests
         }
 
         [Test]
+        public void transition_does_not_switich_state_when_not_in_correct_source_state()
+        {
+            var stateMachine = new StateMachine();
+            IState firstState = Substitute.For<IState>();
+            IState secondState = Substitute.For<IState>();
+            IState thirdState = Substitute.For<IState>();
+
+            // local method/function
+            bool ShouldTransitionState() => true;
+            stateMachine.AddTransition(secondState, thirdState, ShouldTransitionState);
+
+            stateMachine.SetState(firstState);
+            Assert.AreSame(firstState, stateMachine.CurrentState);
+
+            stateMachine.Tick();
+            Assert.AreSame(firstState, stateMachine.CurrentState);
+        }
+        
+        [Test]
         public void transition_from_any_switiches_state_when_condition_is_met()
         {
             var stateMachine = new StateMachine();
             IState firstState = Substitute.For<IState>();
             IState secondState = Substitute.For<IState>();
-
-            stateMachine.Add(firstState);
-            stateMachine.Add(secondState);
 
             // local method/function
             bool ShouldTransitionState() => true;

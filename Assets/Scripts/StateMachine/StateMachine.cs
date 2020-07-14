@@ -4,19 +4,11 @@ using UnityEngine;
 
 public class StateMachine
 {
-    private Dictionary<IState, List<StateTransition>> _stateTransitions =
-        new Dictionary<IState, List<StateTransition>>();
+    private List<StateTransition> _stateTransitions = new List<StateTransition>();
     private List<StateTransition> _anyStateTransitions = new List<StateTransition>();
 
-
-    private List<IState> _states = new List<IState>();
     private IState _currentState;
     public IState CurrentState => _currentState;
-
-    public void Add(IState state)
-    {
-        _states.Add(state);
-    }
 
     public void AddAnyTransition(IState to, Func<bool> condition)
     {
@@ -27,13 +19,8 @@ public class StateMachine
 
     public void AddTransition(IState from, IState to, Func<bool> condition)
     {
-        if (_stateTransitions.ContainsKey(from) == false)
-        {
-            _stateTransitions[from] = new List<StateTransition>();
-        }
-
         var stateTransition = new StateTransition(from, to, condition);
-        _stateTransitions[from].Add(stateTransition);
+        _stateTransitions.Add(stateTransition);
     }
 
     public void SetState(IState state)
@@ -71,15 +58,11 @@ public class StateMachine
                 return transition;
             }
         }
-        
-        if (_stateTransitions.ContainsKey(_currentState))
+        foreach (var transition in _stateTransitions)
         {
-            foreach (var transition in _stateTransitions[_currentState])
+            if (transition.From == _currentState && transition.Condition())
             {
-                if (transition.Condition())
-                {
-                    return transition;
-                }
+                return transition;
             }
         }
         return null;
