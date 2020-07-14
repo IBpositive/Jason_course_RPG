@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _itemTransform: {fileID: 4818120631816859164}
-  _rotationSpeed: 1
+  _rotationSpeed: 5
 --- !u!1 &6675809205830734055
 GameObject:
   m_ObjectHideFlags: 0

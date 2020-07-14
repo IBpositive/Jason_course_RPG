@@ -5,8 +5,8 @@ using UnityEngine;
 public class NPCLoot : MonoBehaviour
 {
     [SerializeField] private Item[] _itemPrefabs;
-    
-    
+
+
     private Inventory _inventory;
     private EntityStateMachine _entityStateMachine;
 
@@ -15,7 +15,7 @@ public class NPCLoot : MonoBehaviour
     {
         _entityStateMachine = GetComponent<EntityStateMachine>();
         _entityStateMachine.OnEntityStateChanged += HandleEntityStateChanged;
-        
+
         _inventory = GetComponent<Inventory>();
 
         foreach (var itemPrefab in _itemPrefabs)
@@ -38,9 +38,11 @@ public class NPCLoot : MonoBehaviour
     {
         foreach (var item in _inventory.Items)
         {
-            var lootItemHolder = FindObjectOfType<LootItemHolder>();
-            lootItemHolder.TakeItem(item);
+            LootSystem.Drop(item, transform);
+            // var lootItemHolder = FindObjectOfType<LootItemHolder>();
+            // lootItemHolder.TakeItem(item);
         }
+
         _inventory.Items.Clear();
     }
 }
