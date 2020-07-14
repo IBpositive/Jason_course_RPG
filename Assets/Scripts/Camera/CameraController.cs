@@ -6,6 +6,11 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
+        if (Pause.Active)
+        {
+            return;
+        }
+        
         float mouseRoataion = Input.GetAxis("Mouse Y");
         // to restrict how much the player can move the camera
         _tilt = Mathf.Clamp(_tilt - mouseRoataion, -15f, 15f);
