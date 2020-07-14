@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -8,12 +9,14 @@ public class Item : MonoBehaviour
     [SerializeField] private CrosshairDefinition _crosshairDefinition;
     [SerializeField] private UseAction[] _actions = new UseAction[0];
     [SerializeField] private Sprite _icon;
+    public event Action OnPickedUp;
+
 
     public UseAction[] Actions => _actions;
     public CrosshairDefinition CrosshairDefinition => _crosshairDefinition;
     public Sprite Icon => _icon;
     public bool WasPickedUp { get; set; }
-    
+
     private void OnTriggerEnter(Collider other)
     {
         if (WasPickedUp)
@@ -23,6 +26,7 @@ public class Item : MonoBehaviour
         if (inventory != null)
         {
             inventory.Pickup(this);
+            OnPickedUp?.Invoke();
         }
     }
 

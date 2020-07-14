@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 public class LootSystem : MonoBehaviour
 {
     [SerializeField] private AssetReference _lootItemHolderPrefab;
-    
+
     private static LootSystem _instance;
+    private static Queue<LootItemHolder> _lootItemHolders = new Queue<LootItemHolder>();
 
     private void Awake()
     {
@@ -23,15 +26,30 @@ public class LootSystem : MonoBehaviour
 
     public static void Drop(Item item, Transform droppingTransform)
     {
-        _instance.StartCoroutine(_instance.DropAsync(item, droppingTransform));
+        if (_lootItemHolders.Any())
+        {
+            var lootItemHolder = _lootItemHolders.Dequeue();
+            lootItemHolder.gameObject.SetActive(true);
+            AssignItemToHolder(lootItemHolder, item, droppingTransform);
+        }
+        else
+        {
+            _instance.StartCoroutine(_instance.DropAsync(item, droppingTransform));
+        }
     }
 
     private IEnumerator DropAsync(Item item, Transform droppingTransform)
     {
         var operation = _lootItemHolderPrefab.InstantiateAsync();
         yield return operation;
-        
+
         var lootItemHolder = operation.Result.GetComponent<LootItemHolder>();
+
+        AssignItemToHolder(lootItemHolder, item, droppingTransform);
+    }
+
+    private static void AssignItemToHolder(LootItemHolder lootItemHolder, Item item, Transform droppingTransform)
+    {
         lootItemHolder.TakeItem(item);
 
         // need to cache this point because it doesn't have a y axis.
@@ -39,5 +57,11 @@ public class LootSystem : MonoBehaviour
         Vector3 randomPosition = droppingTransform.position + new Vector3(randomCirclePoint.x, 0, randomCirclePoint.y);
 
         lootItemHolder.transform.position = randomPosition;
+    }
+
+    public static void AddToPool(LootItemHolder lootItemHolder)
+    {
+        lootItemHolder.gameObject.SetActive(false);
+        _lootItemHolders.Enqueue(lootItemHolder);
     }
 }
