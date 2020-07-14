@@ -16,6 +16,7 @@ public class Inventory : MonoBehaviour
     private Transform _itemRoot;
 
     public Item ActiveItem { get; private set; }
+    public List<Item> Items => _items;
  
         
     // We make the awake to initialize _item and _itemRoot.

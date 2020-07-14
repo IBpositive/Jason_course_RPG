@@ -9,6 +9,7 @@ public class StateMachine
 
     private IState _currentState;
     public IState CurrentState => _currentState;
+    public event Action<IState> OnStateChanged; 
 
     public void AddAnyTransition(IState to, Func<bool> condition)
     {
@@ -36,6 +37,9 @@ public class StateMachine
         Debug.Log($"Changed to state {state}");
 
         _currentState.OnEnter();
+
+        // ?. basically means only call this if it != null
+        OnStateChanged?.Invoke(_currentState);
     }
 
     public void Tick()
