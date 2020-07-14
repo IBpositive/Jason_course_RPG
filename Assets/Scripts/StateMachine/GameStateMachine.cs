@@ -20,7 +20,7 @@ public class GameStateMachine : MonoBehaviour
 
         _initialized = true;
         DontDestroyOnLoad(gameObject);
-        
+
         _stateMachine = new StateMachine();
 
         var menu = new Menu();
@@ -33,7 +33,10 @@ public class GameStateMachine : MonoBehaviour
         _stateMachine.AddTransition(loading, play, loading.Finished);
         _stateMachine.AddTransition(play, pause, () => Input.GetKeyDown(KeyCode.Escape));
         _stateMachine.AddTransition(pause, play, () => Input.GetKeyDown(KeyCode.Escape));
-
+        // Buttons in Pause menu are broke atm and I'm not sure why. 
+        // In the mean time the restart function has been binded to a keycode. Still needs to be paused first.
+        _stateMachine.AddTransition(pause, loading, () => RestartButton.Pressed);
+        _stateMachine.AddTransition(pause, loading, () => Input.GetKeyDown(KeyCode.L));
     }
 
     private void Update()
@@ -97,7 +100,7 @@ public class LoadLevel : IState
 public class Pause : IState
 {
     public static bool Active { get; private set; }
-    
+
     public void Tick()
     {
     }
