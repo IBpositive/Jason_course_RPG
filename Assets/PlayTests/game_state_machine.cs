@@ -10,6 +10,14 @@ namespace state_machine
 {
     public class game_state_machine
     {
+        [TearDown]
+        public void teardown()
+        {
+            // we destroy this in the test because we want a fresh start for each test.
+            // without this the current test would be using the previous tests GameStateMachine
+            GameObject.Destroy(Object.FindObjectOfType<GameStateMachine>());
+        }
+        
         [UnityTest]
         public IEnumerator switches_to_loading_when_level_to_load_selected()
         {
@@ -28,10 +36,6 @@ namespace state_machine
         [UnityTest]
         public IEnumerator switches_to_play_when_level_to_load_completed()
         {
-            // we destroy this in the test because we want a fresh start for each test.
-            // without this the current test would be using the previous tests GameStateMachine
-            GameObject.Destroy(Object.FindObjectOfType<GameStateMachine>());
-            
             yield return Helpers.LoadMenuScene();
             var stateMachine = GameObject.FindObjectOfType<GameStateMachine>();
             
