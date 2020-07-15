@@ -39,6 +39,13 @@ namespace a_player
                 yield return null;
         }
         
+        public static IEnumerator LoadMenuScene()
+        {
+            var operation = SceneManager.LoadSceneAsync("Menu");
+            while (operation.isDone == false) 
+                yield return null;
+        }
+        
         public static Player GetPlayer()
         {
             Player player = GameObject.FindObjectOfType<Player>();
@@ -54,6 +61,7 @@ namespace a_player
             var dot = Vector3.Dot(cross, Vector3.up);
             return dot;
         }
+
 
 
     }
