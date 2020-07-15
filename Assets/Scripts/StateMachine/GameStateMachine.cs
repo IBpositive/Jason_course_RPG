@@ -6,22 +6,22 @@ using UnityEngine.SceneManagement;
 
 public class GameStateMachine : MonoBehaviour
 {
-    public static event Action<IState> OnGameStateChanged; 
-    
-    private static bool _initialized;
+    public static event Action<IState> OnGameStateChanged;
+
+    private static GameStateMachine _instance;
 
     private StateMachine _stateMachine;
     public Type CurrentStateType => _stateMachine.CurrentState.GetType();
 
     private void Awake()
     {
-        if (_initialized)
+        if (_instance != null)
         {
             Destroy(gameObject);
             return;
         }
 
-        _initialized = true;
+        _instance = this;
         DontDestroyOnLoad(gameObject);
 
         _stateMachine = new StateMachine();
