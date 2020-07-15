@@ -8,4 +8,6 @@ public interface IPlayerInput
     float Horizontal { get; }
     float MouseX { get; }
     void Tick();
+    
+    bool PausePressed { get; }
 }

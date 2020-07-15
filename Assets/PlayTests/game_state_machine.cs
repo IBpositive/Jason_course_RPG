@@ -17,38 +17,54 @@ namespace state_machine
             // without this the current test would be using the previous tests GameStateMachine
             GameObject.Destroy(Object.FindObjectOfType<GameStateMachine>());
         }
-        
+
         [UnityTest]
         public IEnumerator switches_to_loading_when_level_to_load_selected()
         {
             yield return Helpers.LoadMenuScene();
             var stateMachine = GameObject.FindObjectOfType<GameStateMachine>();
-            
-            Assert.AreEqual(typeof(Menu),stateMachine.CurrentStateType);
+
+            Assert.AreEqual(typeof(Menu), stateMachine.CurrentStateType);
             PlayButton.LevelToLoad = "Level1";
-            
+
             yield return null;
 
-            Assert.AreEqual(typeof(LoadLevel),stateMachine.CurrentStateType);
-
+            Assert.AreEqual(typeof(LoadLevel), stateMachine.CurrentStateType);
         }
-        
+
         [UnityTest]
         public IEnumerator switches_to_play_when_level_to_load_completed()
         {
             yield return Helpers.LoadMenuScene();
             var stateMachine = GameObject.FindObjectOfType<GameStateMachine>();
-            
-            Assert.AreEqual(typeof(Menu),stateMachine.CurrentStateType);
+
+            Assert.AreEqual(typeof(Menu), stateMachine.CurrentStateType);
             PlayButton.LevelToLoad = "Level1";
-            
+
             yield return null;
 
-            Assert.AreEqual(typeof(LoadLevel),stateMachine.CurrentStateType);
+            Assert.AreEqual(typeof(LoadLevel), stateMachine.CurrentStateType);
+
+            yield return new WaitUntil(() => stateMachine.CurrentStateType == typeof(Play));
+
+            Assert.AreEqual(typeof(Play), stateMachine.CurrentStateType);
+        }
+        
+        [UnityTest]
+        public IEnumerator switches_from_play_to_pause_when_pause_button_pressed()
+        {
+            yield return Helpers.LoadMenuScene();
+            var stateMachine = GameObject.FindObjectOfType<GameStateMachine>();
+
+            PlayButton.LevelToLoad = "Level1";
 
             yield return new WaitUntil(() => stateMachine.CurrentStateType == typeof(Play));
             
-            Assert.AreEqual(typeof(Play),stateMachine.CurrentStateType);
+            // hit pause
+            
+            
+            Assert.AreEqual(typeof(Pause), stateMachine.CurrentStateType);
+
         }
 
         [UnityTest]
@@ -57,15 +73,12 @@ namespace state_machine
             var firstGameStateMachine = new GameObject("First State Machine").AddComponent<GameStateMachine>();
             var secondGameStateMachine = new GameObject("Second State Machine").AddComponent<GameStateMachine>();
             yield return null;
-            
+
             // has a weird error about the way null is handled.
             //Assert.IsNull(secondGameStateMachine);
             Assert.IsTrue(secondGameStateMachine == null);
 
             Assert.IsNotNull(firstGameStateMachine);
-
-
         }
-        
     }
 }

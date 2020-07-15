@@ -10,7 +10,7 @@ public class Hotbar : MonoBehaviour
     private void OnEnable()
     {
         _player = FindObjectOfType<Player>();
-        _player.PlayerInput.HotkeyPressed += HotkeyPressed;
+        PlayerInput.Instance.HotkeyPressed += HotkeyPressed;
         _inventory = FindObjectOfType<Inventory>();
         _inventory.ItemPickedUp += ItemPickedUp;
         _slots = GetComponentsInChildren<Slot>();
@@ -20,7 +20,7 @@ public class Hotbar : MonoBehaviour
     {
         // remove event registration
         // if we don't do this, and this script gets called multiple times, we'll have multiple events triggering
-        _player.PlayerInput.HotkeyPressed -= HotkeyPressed;
+        PlayerInput.Instance.HotkeyPressed -= HotkeyPressed;
         _inventory.ItemPickedUp -= ItemPickedUp;
 
 
