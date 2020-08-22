@@ -34,8 +34,9 @@ public class UIInventoryPanel : MonoBehaviour
         if (Selected != null)
         {
             Swap(slot);
+            Selected = null;
         }
-        else
+        else if (slot.IsEmpty == false)
         {
             Selected = slot;
         }
