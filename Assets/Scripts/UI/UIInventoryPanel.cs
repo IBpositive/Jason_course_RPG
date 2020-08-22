@@ -22,6 +22,7 @@ public class UIInventoryPanel : MonoBehaviour
         if (_inventory != null)
         {
             _inventory.ItemPickedUp -= HandleItemPickedUp;
+            _inventory.OnItemChanged -= HandleItemChanged;
         }
         
         _inventory = inventory;
@@ -29,12 +30,18 @@ public class UIInventoryPanel : MonoBehaviour
         if (_inventory != null)
         {
             _inventory.ItemPickedUp += HandleItemPickedUp;
+            _inventory.OnItemChanged += HandleItemChanged;
             RefreshSlots();
         }
         else
         {
             ClearSlots();
         }
+    }
+
+    private void HandleItemChanged(int slotNumber)
+    {
+        Slots[slotNumber].SetItem(_inventory.GetItemInSlot(slotNumber));
     }
 
     private void ClearSlots()

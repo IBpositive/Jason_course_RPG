@@ -11,6 +11,7 @@ public class Inventory : MonoBehaviour
     private const int DEFAULT_INVENTORY_SIZE = 25;
     public event Action<Item> ActiveItemChanged;
     public event Action<Item> ItemPickedUp;
+    public event Action<int> OnItemChanged;
 
     [SerializeField] private Transform _rightHand;
 
@@ -82,5 +83,16 @@ public class Inventory : MonoBehaviour
     public Item GetItemInSlot(int slot)
     {
         return _items[slot];
+    }
+
+    public void Move(int sourceSlot, int destinationSlot)
+    {
+        var destinationItem = _items[destinationSlot];
+        _items[destinationSlot] = _items[sourceSlot];
+        _items[sourceSlot] = destinationItem;
+
+        OnItemChanged?.Invoke(destinationSlot);
+        OnItemChanged?.Invoke(sourceSlot);
+        
     }
 }
