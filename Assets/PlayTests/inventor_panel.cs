@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using JetBrains.Annotations;
+using NSubstitute;
+using NSubstitute.Core;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEditorInternal.Profiling.Memory.Experimental;
@@ -8,6 +10,23 @@ using UnityEngine.TestTools;
 
 namespace PlayTests
 {
+    public class ui_inventory_slot
+    {
+        [Test]
+        public void when_item_is_set_changes_icon_to_match()
+        {
+            var inventoryPanel = inventor_panel.GetInventoryPanel();
+            var slot = inventoryPanel.Slots[0];
+            var item = Substitute.For<IItem>();
+            var sprite = Sprite.Create(Texture2D.redTexture, new Rect(0, 0, 4, 4), Vector2.zero);
+            item.Icon.Returns(sprite);
+
+            slot.SetItem(item);
+
+            Assert.AreSame(sprite, slot.Icon);
+        }
+    }
+    
     public class inventor_panel
     {
         [Test]
@@ -51,6 +70,50 @@ namespace PlayTests
             }
         }
 
+        [Test]
+        public void places_item_in_slot_when_item_is_added_to_inventory()
+        {
+            var inventoryPanel = GetInventoryPanel();
+            var inventory = GetInventory();
+            var item = GetItem();
+
+            inventoryPanel.Bind(inventory);
+            
+            Assert.IsTrue(inventoryPanel.Slots[0].IsEmpty);
+
+            inventory.Pickup(item);
+
+            Assert.IsFalse(inventoryPanel.Slots[0].IsEmpty);
+
+        }
+
+        [Test]
+        public void bound_to_null_inventory_has_empty_slots()
+        {
+            var inventoryPanel = GetInventoryPanel();
+            inventoryPanel.Bind(null);
+
+            for (int i = 0; i < inventoryPanel.SlotCount; i++)
+            {
+                Assert.IsTrue(inventoryPanel.Slots[i].IsEmpty);
+            }
+        }
+        
+        [Test]
+        public void bound_to_valid_inventory_then_bound_to_null_inventory_has_empty_slots()
+        {
+            var inventoryPanel = GetInventoryPanel();
+            var inventory = GetInventory(1);
+
+            inventoryPanel.Bind(inventory);
+            inventoryPanel.Bind(null);
+
+            for (int i = 0; i < inventoryPanel.SlotCount; i++)
+            {
+                Assert.IsTrue(inventoryPanel.Slots[i].IsEmpty);
+            }
+        }
+
         private Item GetItem()
         {
             var itemGameObject = new GameObject("Item", typeof(SphereCollider));
@@ -69,7 +132,7 @@ namespace PlayTests
             return inventory;
         }
 
-        private UIInventoryPanel GetInventoryPanel()
+        public static UIInventoryPanel GetInventoryPanel()
         {
             var prefab = AssetDatabase.LoadAssetAtPath<UIInventoryPanel>("Assets/Prefab/UI/InventoryPanel.prefab");
             return Object.Instantiate(prefab);
