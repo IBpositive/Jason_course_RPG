@@ -1,16 +1,24 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace PlayTests
 {
     public class UISelectionCursor : MonoBehaviour
     {
+        [SerializeField] private Image _image;
         private UIInventoryPanel _inventoryPanel;
-        public bool IconVisible { get; set; }
+
+        public bool IconVisible => _image != null && _image.sprite != null;
+        public Sprite Icon => _image.sprite;
 
         private void Awake() => _inventoryPanel = FindObjectOfType<UIInventoryPanel>();
         private void OnEnable() => _inventoryPanel.OnSelectionChanged += HandleSelectionChanged;
         private void OnDisable() => _inventoryPanel.OnSelectionChanged -= HandleSelectionChanged;
-        private void HandleSelectionChanged() => IconVisible = !_inventoryPanel.Selected.IsEmpty;
+        private void HandleSelectionChanged()
+        {
+            _image.sprite = _inventoryPanel.Selected.Icon;
+            //IconVisible = !_inventoryPanel.Selected.IsEmpty;
+        }
     }
 }
