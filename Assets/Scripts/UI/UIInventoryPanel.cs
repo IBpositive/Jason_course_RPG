@@ -5,17 +5,34 @@ using UnityEngine;
 
 public class UIInventoryPanel : MonoBehaviour
 {
+    [ContextMenu("Swap 01")]
+    public void Swap01() => _inventory.Move(0, 1);
+    
     private Inventory _inventory;
 
+    public int SlotCount => Slots.Length;
+    public UIInventorySlot Selected { get; private set; }
     
     public UIInventorySlot[] Slots;
 
     private void Awake()
     {
         Slots = GetComponentsInChildren<UIInventorySlot>();
+        RegisterSlotsForClickCallback();
     }
 
-    public int SlotCount => Slots.Length;
+    private void RegisterSlotsForClickCallback()
+    {
+        foreach (var slot in Slots)
+        {
+            slot.OnSlotClicked += HandleSlotClicked;
+        }
+    }
+
+    private void HandleSlotClicked(UIInventorySlot slot)
+    {
+        Selected = slot;
+    }
 
     public void Bind(Inventory inventory)
     {
