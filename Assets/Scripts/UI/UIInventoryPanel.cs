@@ -5,6 +5,14 @@ using UnityEngine;
 
 public class UIInventoryPanel : MonoBehaviour
 {
+    public event Action OnSelectionChanged;
+    
+    /*
+     * The Swap 01 function isn't needed anymore, but it kept as an
+     * example of how to make context menu functions.
+     * These functions will show up when you right click the component
+     * in the inspector during runtime.
+     */
     [ContextMenu("Swap 01")]
     public void Swap01() => _inventory.Move(0, 1);
     
@@ -40,6 +48,8 @@ public class UIInventoryPanel : MonoBehaviour
         {
             Selected = slot;
         }
+
+        OnSelectionChanged?.Invoke();
     }
 
     private void Swap(UIInventorySlot slot)
@@ -115,4 +125,6 @@ public class UIInventoryPanel : MonoBehaviour
     {
         RefreshSlots();
     }
+
+    
 }
