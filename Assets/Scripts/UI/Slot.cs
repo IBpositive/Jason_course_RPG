@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Serialization;
@@ -11,11 +10,6 @@ public class Slot : MonoBehaviour
     public Item Item { get; private set; }
     public bool IsEmpty => Item == null;
     public Image IconImage => _iconImage;
-    public void SetItem(Item item)
-    {
-        Item = item;
-        _iconImage.sprite = item.Icon;
-    }
 
     // runs when saved or compiled. This is why it auto updates if you duplicate and add slots.
     private void OnValidate()

@@ -25,7 +25,7 @@ public class UIInventoryPanel : MonoBehaviour
 
     private void Awake()
     {
-        Slots = GetComponentsInChildren<UIInventorySlot>();
+        Slots = FindObjectsOfType<UIInventorySlot>();
         RegisterSlotsForClickCallback();
     }
 

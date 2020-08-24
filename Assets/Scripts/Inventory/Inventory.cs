@@ -8,7 +8,7 @@ using UnityEngine;
 /// </summary>
 public class Inventory : MonoBehaviour
 {
-    private const int DEFAULT_INVENTORY_SIZE = 25;
+    private const int DEFAULT_INVENTORY_SIZE = 29;
     public event Action<Item> ActiveItemChanged;
     public event Action<Item> ItemPickedUp;
     public event Action<int> OnItemChanged;
