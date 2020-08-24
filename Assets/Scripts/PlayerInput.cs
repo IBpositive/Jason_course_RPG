@@ -40,4 +40,5 @@ public class PlayerInput : MonoBehaviour, IPlayerInput
     }
 
     public bool PausePressed { get; }
+    public Vector2 MousePosition => Input.mousePosition;
 }

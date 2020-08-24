@@ -18,6 +18,11 @@ namespace PlayTests
             _image.enabled = false;
         }
 
+        private void Update()
+        {
+            transform.position = PlayerInput.Instance.MousePosition;
+        }
+
         private void OnEnable() => _inventoryPanel.OnSelectionChanged += HandleSelectionChanged;
         private void OnDisable() => _inventoryPanel.OnSelectionChanged -= HandleSelectionChanged;
         private void HandleSelectionChanged()

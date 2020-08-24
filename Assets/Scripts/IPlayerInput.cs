@@ -1,4 +1,6 @@
 ﻿using System;
+using UnityEngine;
+
 public interface IPlayerInput
 {
     event Action<int> HotkeyPressed;
@@ -10,4 +12,5 @@ public interface IPlayerInput
     void Tick();
     
     bool PausePressed { get; }
+    Vector2 MousePosition { get; }
 }
