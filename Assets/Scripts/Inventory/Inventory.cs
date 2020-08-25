@@ -11,10 +11,15 @@ public class Inventory : MonoBehaviour
     public event Action<Item> ItemPickedUp;
     public event Action<int> OnItemChanged;
     
+    public event Action<Item> ItemEquipped;
+    public event Action<Item> ItemUnEquipped;
+    
     [SerializeField] private Transform _rightHand;
     
     private Item[] _items = new Item[DEFAULT_INVENTORY_SIZE];
     private Transform _itemRoot;
+    
+    
 
     public Item ActiveItem { get; private set; }
     public List<Item> Items => _items.ToList();
@@ -59,6 +64,7 @@ public class Inventory : MonoBehaviour
         {
             ActiveItem.transform.SetParent(_itemRoot);
             ActiveItem.gameObject.SetActive(false);
+            ItemUnEquipped?.Invoke(ActiveItem);
         }
         
         Debug.Log($"Equipped Item {item.gameObject.name}");
@@ -68,6 +74,7 @@ public class Inventory : MonoBehaviour
         ActiveItem = item;
 
         ActiveItemChanged?.Invoke(ActiveItem);
+        ItemEquipped?.Invoke(item);
     }
 
     public Item GetItemInSlot(int slot)
