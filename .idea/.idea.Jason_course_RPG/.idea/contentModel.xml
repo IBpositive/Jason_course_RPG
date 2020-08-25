@@ -15,6 +15,7 @@
           <e p="inventory_selection_with_nothing_selected.cs" t="Include" />
           <e p="moving_into_an_item.cs" t="Include" />
           <e p="PlayTests.asmdef" t="Include" />
+          <e p="stats.cs" t="Include" />
           <e p="ui_selection_cursor.cs" t="Include" />
           <e p="with_positive_veritcal_input.cs" t="Include" />
         </e>
@@ -59,6 +60,10 @@
             <e p="IState.cs" t="Include" />
             <e p="StateMachine.cs" t="Include" />
             <e p="StateTransition.cs" t="Include" />
+          </e>
+          <e p="Stats" t="Include">
+            <e p="stats.cs" t="Include" />
+            <e p="StatType.cs" t="Include" />
           </e>
           <e p="UI" t="Include">
             <e p="Crosshair.cs" t="Include" />
