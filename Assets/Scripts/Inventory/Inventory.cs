@@ -7,21 +7,19 @@ public class Inventory : MonoBehaviour
 {
     public const int DEFAULT_INVENTORY_SIZE = 29;
     
-    public event Action<Item> ActiveItemChanged;
+    public event Action<IItem> ActiveItemChanged;
     public event Action<Item> ItemPickedUp;
     public event Action<int> OnItemChanged;
     
-    public event Action<Item> ItemEquipped;
-    public event Action<Item> ItemUnEquipped;
+    public event Action<IItem> ItemEquipped;
+    public event Action<IItem> ItemUnEquipped;
     
     [SerializeField] private Transform _rightHand;
     
     private Item[] _items = new Item[DEFAULT_INVENTORY_SIZE];
     private Transform _itemRoot;
     
-    
-
-    public Item ActiveItem { get; private set; }
+    public IItem ActiveItem { get; private set; }
     public List<Item> Items => _items.ToList();
     public int Count => _items.Count(t => t != null);
 
@@ -58,7 +56,7 @@ public class Inventory : MonoBehaviour
         return null;
     }
 
-    public void Equip(Item item)
+    public void Equip(IItem item)
     {
         if (ActiveItem != null)
         {
@@ -72,6 +70,7 @@ public class Inventory : MonoBehaviour
         item.transform.localPosition = Vector3.zero;
         item.transform.localRotation = Quaternion.identity;
         ActiveItem = item;
+        ActiveItem.gameObject.SetActive(true);
 
         ActiveItemChanged?.Invoke(ActiveItem);
         ItemEquipped?.Invoke(item);

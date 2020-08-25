@@ -38,16 +38,24 @@ public class Stats
         inventory.ItemUnEquipped += HandleItemUnEquipped;
     }
 
-    private void HandleItemUnEquipped(Item item)
+    private void HandleItemUnEquipped(IItem item)
     {
+        if (item.StatMods == null)
+        {
+            return;
+        }
         foreach (var statMod in item.StatMods)
         {
             Remove(statMod.StatType, statMod.Value);
         }
     }
 
-    private void HandleItemEquipped(Item item)
+    private void HandleItemEquipped(IItem item)
     {
+        if (item.StatMods == null)
+        {
+            return;
+        }
         foreach (var statMod in item.StatMods)
         {
             Add(statMod.StatType, statMod.Value);

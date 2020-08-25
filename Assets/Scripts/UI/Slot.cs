@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -7,10 +8,13 @@ public class Slot : MonoBehaviour
 {
     [FormerlySerializedAs("_icon")] [SerializeField] private Image _iconImage;
     [SerializeField] private TMP_Text _text;
+    private UIInventorySlot _inventorySlot;
 
-    public Item Item { get; private set; }
+    public IItem Item => _inventorySlot.Item;
     public bool IsEmpty => Item == null;
     public Image IconImage => _iconImage;
+
+    private void Awake() => _inventorySlot = GetComponent<UIInventorySlot>();
 
     private void OnValidate()
     {

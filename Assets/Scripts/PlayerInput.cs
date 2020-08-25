@@ -17,6 +17,8 @@ public class PlayerInput : MonoBehaviour, IPlayerInput
 
     public event Action<int> HotkeyPressed;
 
+    private void Update() => Tick();
+
     public void Tick()
     {
         if (MoveModeTogglePressed != null && Input.GetKeyDown(KeyCode.Minus))
