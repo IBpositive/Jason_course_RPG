@@ -1096,7 +1096,7 @@ PrefabInstance:
     - target: {fileID: 7911415819656863872, guid: 2fa261c2e0e0cfc488f33de7a0c4f906,
         type: 3}
       propertyPath: _statMods.Array.data[0].Value
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7979244249173836022, guid: 2fa261c2e0e0cfc488f33de7a0c4f906,
         type: 3}

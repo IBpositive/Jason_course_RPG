@@ -11,9 +11,9 @@ public class stats : MonoBehaviour
     {
         Stats stats = new Stats();
         stats.Add(StatType.MoveSpeed, 3f);
-        Assert.AreEqual(3f, stats.Get(StatType.MoveSpeed));
-        stats.Add(StatType.MoveSpeed, 5f);
         Assert.AreEqual(8f, stats.Get(StatType.MoveSpeed));
+        stats.Add(StatType.MoveSpeed, 5f);
+        Assert.AreEqual(13f, stats.Get(StatType.MoveSpeed));
     }
     
     [Test]
@@ -21,9 +21,9 @@ public class stats : MonoBehaviour
     {
         Stats stats = new Stats();
         stats.Add(StatType.MoveSpeed, 3f);
-        Assert.AreEqual(3f, stats.Get(StatType.MoveSpeed));
+        Assert.AreEqual(8f, stats.Get(StatType.MoveSpeed));
         
         stats.Remove(StatType.MoveSpeed, 3f);
-        Assert.AreEqual(0f, stats.Get(StatType.MoveSpeed));
+        Assert.AreEqual(5f, stats.Get(StatType.MoveSpeed));
     }
 }
