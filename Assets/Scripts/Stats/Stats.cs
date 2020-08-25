@@ -7,6 +7,11 @@ public class Stats
 {
     private Dictionary<StatType, float> _stats = new Dictionary<StatType, float>();
 
+    public Stats()
+    {
+        Add(StatType.MoveSpeed, 5f);
+    }
+    
     public void Add(StatType statType, float value)
     {
         if (_stats.ContainsKey(statType))
@@ -19,9 +24,14 @@ public class Stats
         }
     }
 
-    public double Get(StatType statType)
+    public float Get(StatType statType)
     {
-        return _stats[statType];
+        if (_stats.ContainsKey(statType))
+        {
+            return _stats[statType];
+        }
+
+        return 0f;
     }
 
     public void Remove(StatType statType, float value)
