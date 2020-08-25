@@ -37,11 +37,13 @@ public class UIInventoryPanel : MonoBehaviour
         if (Selected != null)
         {
             Swap(slot);
+            Selected.BecomeUnselected();
             Selected = null;
         }
         else if (slot.IsEmpty == false)
         {
             Selected = slot;
+            Selected.BecomeSelected();
         }
         OnSelectionChanged?.Invoke();
     }
