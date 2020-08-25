@@ -15,8 +15,12 @@ public class Item : MonoBehaviour, IItem
     [SerializeField] private UseAction[] _actions = new UseAction[0];
     [SerializeField] private Sprite _icon;
 
+    [SerializeField] private StatMod[] _statMods;
+
+
     public event Action OnPickedUp;
-    
+
+
     public UseAction[] Actions => _actions;
     public CrosshairDefinition CrosshairDefinition => _crosshairDefinition;
     public Sprite Icon => _icon;
@@ -49,12 +53,14 @@ public class ItemEditor : Editor
     public override void OnInspectorGUI()
     {
         Item item = (Item) target;
-        
+
         DrawIcon(item);
 
         DrawCrosshair(item);
 
         DrawActions(item);
+
+        DrawStatMods(item);
     }
 
     private void DrawIcon(Item item)
@@ -107,6 +113,46 @@ public class ItemEditor : Editor
         EditorGUILayout.EndHorizontal();
     }
 
+    private void DrawStatMods(Item item)
+    {
+        using (var statModsProperty = serializedObject.FindProperty("_statMods"))
+        {
+            for (int i = 0; i < statModsProperty.arraySize; i++)
+            {
+                EditorGUILayout.BeginHorizontal();
+                if (GUILayout.Button("x", GUILayout.Width(20)))
+                {
+                    statModsProperty.DeleteArrayElementAtIndex(i);
+                    serializedObject.ApplyModifiedProperties();
+                    break;
+                }
+
+                var statMod = statModsProperty.GetArrayElementAtIndex(i);
+                if (statMod != null)
+                {
+                    var statType = statMod.FindPropertyRelative("StatType");
+                    var valueProperty = statMod.FindPropertyRelative("Value");
+
+                    statType.enumValueIndex = (int) (StatType) EditorGUILayout.EnumPopup(
+                        (StatType) statType.enumValueIndex,
+                        GUILayout.Width(120));
+
+                    EditorGUILayout.PropertyField(valueProperty, GUIContent.none, false);
+
+                    serializedObject.ApplyModifiedProperties();
+                }
+
+                EditorGUILayout.EndHorizontal();
+            }
+
+            if (GUILayout.Button("+ Add Stat"))
+            {
+                statModsProperty.InsertArrayElementAtIndex(statModsProperty.arraySize);
+                serializedObject.ApplyModifiedProperties();
+            }
+        }
+    }
+
     private void DrawActions(Item item)
     {
         using (var actionsProperty = serializedObject.FindProperty("_actions"))
@@ -157,7 +203,7 @@ public class ItemEditor : Editor
                 {
                     if (assignedItemComponents.Contains(itemComponent))
                         continue;
-                    
+
                     actionsProperty.InsertArrayElementAtIndex(actionsProperty.arraySize);
                     var action = actionsProperty.GetArrayElementAtIndex(actionsProperty.arraySize - 1);
                     var targetComponentProperty = action.FindPropertyRelative("TargetComponent");

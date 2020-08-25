@@ -372,6 +372,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7911415819656863872, guid: 2fa261c2e0e0cfc488f33de7a0c4f906,
         type: 3}
+      propertyPath: _statMods.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7911415819656863872, guid: 2fa261c2e0e0cfc488f33de7a0c4f906,
+        type: 3}
       propertyPath: _actions.Array.data[0].TargetComponent
       value: 
       objectReference: {fileID: 412305909}
@@ -391,6 +396,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 3b5773bbdf32792418f11ff0ac9a5b7d,
         type: 3}
+    - target: {fileID: 7911415819656863872, guid: 2fa261c2e0e0cfc488f33de7a0c4f906,
+        type: 3}
+      propertyPath: _statMods.Array.data[0].Value
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2fa261c2e0e0cfc488f33de7a0c4f906, type: 3}
 --- !u!1 &412305908 stripped
@@ -782,6 +792,7 @@ MonoBehaviour:
   _crosshairDefinition: {fileID: 0}
   _actions: []
   _icon: {fileID: 0}
+  _statMods: []
 --- !u!65 &1054687035
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1017,6 +1028,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7911415819656863872, guid: 2fa261c2e0e0cfc488f33de7a0c4f906,
         type: 3}
+      propertyPath: _statMods.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7911415819656863872, guid: 2fa261c2e0e0cfc488f33de7a0c4f906,
+        type: 3}
       propertyPath: _actions.Array.data[0].TargetComponent
       value: 
       objectReference: {fileID: 1814693131}
@@ -1037,6 +1053,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 09f4ebb86e20b3949977a77375123f10,
         type: 3}
+    - target: {fileID: 7911415819656863872, guid: 2fa261c2e0e0cfc488f33de7a0c4f906,
+        type: 3}
+      propertyPath: _statMods.Array.data[0].Value
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2fa261c2e0e0cfc488f33de7a0c4f906, type: 3}
 --- !u!1 &1265942699
@@ -1210,6 +1231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _lootItemHolderPrefab:
     m_AssetGUID: a30d2ce813112ad45bb33f7d0b426f5d
+    m_SubObjectName: 
 --- !u!4 &1294089549
 Transform:
   m_ObjectHideFlags: 0
