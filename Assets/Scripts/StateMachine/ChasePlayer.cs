@@ -1,4 +1,4 @@
-﻿using UnityEngine.AI;
+using UnityEngine.AI;
 
 public class ChasePlayer : IState
 {

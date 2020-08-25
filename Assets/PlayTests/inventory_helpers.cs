@@ -1,13 +1,13 @@
-﻿using UnityEditor;
+using UnityEditor;
 using UnityEngine;
 
 namespace PlayTests
 {
     public static class inventory_helpers
     {
-        public static UIInventoryPanel GetInventoryPanelWithItems(int numberOfItems = 0)
+        public static UIInventoryPanel GetInventoryPanelWithItems(int numberOfItems)
         {
-            var prefab = AssetDatabase.LoadAssetAtPath<UIInventoryPanel>("Assets/Prefab/UI/InventoryPanel.prefab");
+            var prefab = AssetDatabase.LoadAssetAtPath<UIInventoryPanel>("Assets/Prefabs/UI/InventoryPanel.prefab");
             var panel = Object.Instantiate(prefab);
             var inventory = GetInventory(numberOfItems);
             panel.Bind(inventory);
@@ -25,19 +25,19 @@ namespace PlayTests
 
             return inventory;
         }
+        
         public static Item GetItem()
         {
-            var prefab = AssetDatabase.LoadAssetAtPath<Item>("Assets/Prefab/Items/TestItem.prefab");
+            var prefab = AssetDatabase.LoadAssetAtPath<Item>("Assets/Prefabs/Items/TestItem.prefab");
             return Object.Instantiate(prefab);
         }
 
         public static UISelectionCursor GetSelectionCursor()
         {
-            var prefab = AssetDatabase.LoadAssetAtPath<UISelectionCursor>("Assets/Prefab/UI/SelectionCursor.prefab");
-            return Object.Instantiate(prefab);
+                var prefab = AssetDatabase.LoadAssetAtPath<UISelectionCursor>("Assets/Prefabs/UI/SelectionCursor.prefab");
+                return Object.Instantiate(prefab);
         }
     }
 
-
-    
+ 
 }

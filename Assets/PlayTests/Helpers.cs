@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using NSubstitute;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,31 +9,29 @@ namespace a_player
     {
         public static IEnumerator LoadMovementTestsScene()
         {
-            var operation = SceneManager.LoadSceneAsync("MovementTest");
+            var operation = SceneManager.LoadSceneAsync("MovementTests");
             while (operation.isDone == false)
                 yield return null;
         }
-
-        public static IEnumerator LoadItemTestScene()
+        
+        public static IEnumerator LoadItemsTestsScene()
         {
             var operation = SceneManager.LoadSceneAsync("ItemTests");
             while (operation.isDone == false)
                 yield return null;
-
-            // LoadSceneMode.Additive will add the scene along with w/e else is there
-            // Sort of like having multiple scenes in section 7
+            
             operation = SceneManager.LoadSceneAsync("UI", LoadSceneMode.Additive);
             while (operation.isDone == false)
                 yield return null;
         }
-
-        public static IEnumerator LoadEntityStateTestScene()
+        
+        public static IEnumerator LoadEntityStateMachineTestsScene()
         {
             var operation = SceneManager.LoadSceneAsync("EntityStateMachineTests");
             while (operation.isDone == false)
                 yield return null;
         }
-
+        
         public static IEnumerator LoadMenuScene()
         {
             var operation = SceneManager.LoadSceneAsync("Menu");
@@ -53,5 +51,7 @@ namespace a_player
             var dot = Vector3.Dot(cross, Vector3.up);
             return dot;
         }
+
+
     }
 }

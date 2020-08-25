@@ -1,4 +1,4 @@
-﻿public interface ITakeHits
+public interface ITakeHits
 {
     void TakeHit(int amount);
 }

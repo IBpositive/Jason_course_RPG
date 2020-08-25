@@ -1,27 +1,17 @@
 ﻿using System;
 using System.Collections;
-using NSubstitute.ClearExtensions;
 using UnityEngine;
 
 public class UIInventoryPanel : MonoBehaviour
 {
     public event Action OnSelectionChanged;
     
-    /*
-     * The Swap 01 function isn't needed anymore, but it kept as an
-     * example of how to make context menu functions.
-     * These functions will show up when you right click the component
-     * in the inspector during runtime.
-     */
-    [ContextMenu("Swap 01")]
-    public void Swap01() => _inventory.Move(0, 1);
-    
     private Inventory _inventory;
+    
+    public UIInventorySlot[] Slots;
 
     public int SlotCount => Slots.Length;
     public UIInventorySlot Selected { get; private set; }
-    
-    public UIInventorySlot[] Slots;
 
     private void Awake()
     {
@@ -37,6 +27,7 @@ public class UIInventoryPanel : MonoBehaviour
         }
     }
 
+
     private void HandleSlotClicked(UIInventorySlot slot)
     {
         if (Selected != null)
@@ -48,7 +39,6 @@ public class UIInventoryPanel : MonoBehaviour
         {
             Selected = slot;
         }
-
         OnSelectionChanged?.Invoke();
     }
 
@@ -62,9 +52,7 @@ public class UIInventoryPanel : MonoBehaviour
         for (int i = 0; i < SlotCount; i++)
         {
             if (Slots[i] == selected)
-            {
                 return i;
-            }
         }
 
         return -1;
@@ -77,7 +65,7 @@ public class UIInventoryPanel : MonoBehaviour
             _inventory.ItemPickedUp -= HandleItemPickedUp;
             _inventory.OnItemChanged -= HandleItemChanged;
         }
-        
+
         _inventory = inventory;
 
         if (_inventory != null)
@@ -99,10 +87,8 @@ public class UIInventoryPanel : MonoBehaviour
 
     private void ClearSlots()
     {
-        foreach (var slot in Slots)
-        {
+        foreach(var slot in Slots)
             slot.Clear();
-        }
     }
 
     private void RefreshSlots()
@@ -110,14 +96,11 @@ public class UIInventoryPanel : MonoBehaviour
         for (var i = 0; i < Slots.Length; i++)
         {
             var slot = Slots[i];
+
             if (_inventory.Items.Count > i)
-            {
                 slot.SetItem(_inventory.Items[i]);
-            }
             else
-            {
                 slot.Clear();
-            }
         }
     }
 
@@ -125,6 +108,4 @@ public class UIInventoryPanel : MonoBehaviour
     {
         RefreshSlots();
     }
-
-    
 }

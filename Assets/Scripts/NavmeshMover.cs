@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.AI;
 
 public class NavmeshMover : IMover
@@ -12,7 +12,7 @@ public class NavmeshMover : IMover
         _navmeshAgent = _player.GetComponent<NavMeshAgent>();
         _navmeshAgent.enabled = true;
     }
-
+    
     public void Tick()
     {
         if (Input.GetMouseButtonDown(0))

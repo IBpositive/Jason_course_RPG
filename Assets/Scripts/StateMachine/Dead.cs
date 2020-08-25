@@ -1,11 +1,10 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class Dead : IState
 {
-    const float DESPAWN_DELAY = 5F;
-
+    const float DESPAWN_DELAY = 5f;
+    
     private readonly Entity _entity;
-
     private float _despawnTime;
 
     public Dead(Entity entity)
@@ -16,9 +15,7 @@ public class Dead : IState
     public void Tick()
     {
         if (Time.time >= _despawnTime)
-        {
             GameObject.Destroy(_entity.gameObject);
-        }
     }
 
     public void OnEnter()
@@ -29,6 +26,5 @@ public class Dead : IState
 
     public void OnExit()
     {
-        
     }
 }

@@ -1,4 +1,3 @@
-﻿using NSubstitute.Core;
 using NUnit.Framework;
 
 namespace PlayTests
@@ -10,9 +9,8 @@ namespace PlayTests
         {
             var inventoryPanel = inventory_helpers.GetInventoryPanelWithItems(1);
             var slot = inventoryPanel.Slots[0];
-
             slot.OnPointerDown(null);
-            Assert.AreSame(slot,inventoryPanel.Selected);
+            Assert.AreSame(slot, inventoryPanel.Selected);
         }
         
         [Test]
@@ -20,7 +18,6 @@ namespace PlayTests
         {
             var inventoryPanel = inventory_helpers.GetInventoryPanelWithItems(0);
             var slot = inventoryPanel.Slots[0];
-
             slot.OnPointerDown(null);
             Assert.IsNull(inventoryPanel.Selected);
         }
@@ -42,9 +39,9 @@ namespace PlayTests
             
             slot0.OnPointerDown(null);
             slot1.OnPointerDown(null);
-
-            Assert.AreSame(item0,slot1.Item);
-            Assert.AreSame(item1,slot0.Item);
+            
+            Assert.AreSame(item0, slot1.Item);
+            Assert.AreSame(item1, slot0.Item);
         }
         
         [Test]

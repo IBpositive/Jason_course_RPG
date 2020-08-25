@@ -1,4 +1,4 @@
-﻿public enum UseMode
+public enum UseMode
 {
     LeftClick,
     RightClick,

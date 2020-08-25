@@ -14,9 +14,9 @@ public class Item : MonoBehaviour, IItem
     [SerializeField] private CrosshairDefinition _crosshairDefinition;
     [SerializeField] private UseAction[] _actions = new UseAction[0];
     [SerializeField] private Sprite _icon;
+
     public event Action OnPickedUp;
-
-
+    
     public UseAction[] Actions => _actions;
     public CrosshairDefinition CrosshairDefinition => _crosshairDefinition;
     public Sprite Icon => _icon;
@@ -38,12 +38,8 @@ public class Item : MonoBehaviour, IItem
     private void OnValidate()
     {
         var collider = GetComponent<Collider>();
-        // the if statement is to avoid an UI bug in unity 
-        // Jason talks about it in 8f of the game architecture course.
         if (collider.isTrigger == false)
-        {
             collider.isTrigger = true;
-        }
     }
 }
 
@@ -53,33 +49,27 @@ public class ItemEditor : Editor
     public override void OnInspectorGUI()
     {
         Item item = (Item) target;
-
-
+        
         DrawIcon(item);
 
         DrawCrosshair(item);
 
         DrawActions(item);
-
-        // uncomment this line to see the normal GUI for this script.
-        //base.OnInspectorGUI();
     }
 
     private void DrawIcon(Item item)
     {
         EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("Icon", GUILayout.Width(150));
-
+        EditorGUILayout.LabelField("Icon", GUILayout.Width(120));
         if (item.Icon != null)
         {
             GUILayout.Box(item.Icon.texture, GUILayout.Width(60), GUILayout.Height(60));
         }
         else
         {
-            EditorGUILayout.HelpBox("No Icon Selected", MessageType.Error);
+            EditorGUILayout.HelpBox("No Icon Selected", MessageType.Warning);
         }
 
-        // this lets us reuse this code multiple times without copy/paste i think.
         using (var property = serializedObject.FindProperty("_icon"))
         {
             var sprite = (Sprite) EditorGUILayout.ObjectField(item.Icon, typeof(Sprite), false);
@@ -87,35 +77,32 @@ public class ItemEditor : Editor
             serializedObject.ApplyModifiedProperties();
         }
 
-
         EditorGUILayout.EndHorizontal();
     }
 
     private void DrawCrosshair(Item item)
     {
         EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("Crosshair", GUILayout.Width(150));
-
+        EditorGUILayout.LabelField("Crosshair", GUILayout.Width(120));
         if (item.CrosshairDefinition?.Sprite != null)
         {
             GUILayout.Box(item.CrosshairDefinition.Sprite.texture, GUILayout.Width(60), GUILayout.Height(60));
         }
         else
         {
-            EditorGUILayout.HelpBox("No Crosshair Selected", MessageType.Error);
+            EditorGUILayout.HelpBox("No Crosshair Selected", MessageType.Warning);
         }
 
-        // this lets us reuse this code multiple times without copy/paste i think.
         using (var property = serializedObject.FindProperty("_crosshairDefinition"))
         {
             var crosshairDefinition = (CrosshairDefinition) EditorGUILayout.ObjectField(
                 item.CrosshairDefinition,
                 typeof(CrosshairDefinition),
                 false);
+
             property.objectReferenceValue = crosshairDefinition;
             serializedObject.ApplyModifiedProperties();
         }
-
 
         EditorGUILayout.EndHorizontal();
     }
@@ -169,9 +156,7 @@ public class ItemEditor : Editor
                 foreach (var itemComponent in item.GetComponentsInChildren<ItemComponent>())
                 {
                     if (assignedItemComponents.Contains(itemComponent))
-                    {
                         continue;
-                    }
                     
                     actionsProperty.InsertArrayElementAtIndex(actionsProperty.arraySize);
                     var action = actionsProperty.GetArrayElementAtIndex(actionsProperty.arraySize - 1);

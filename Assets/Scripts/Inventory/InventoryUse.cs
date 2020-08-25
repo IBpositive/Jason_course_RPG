@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+using System;
+using UnityEditor;
+using UnityEngine;
 
 [RequireComponent(typeof(Inventory))]
 public class InventoryUse : MonoBehaviour
@@ -24,7 +26,7 @@ public class InventoryUse : MonoBehaviour
         }
     }
 
-    private bool WasPressed(object useMode)
+    private bool WasPressed(UseMode useMode)
     {
         switch (useMode)
         {

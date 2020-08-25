@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class LootItemHolder : MonoBehaviour
 {
     [SerializeField] private Transform _itemTransform;
     [SerializeField] private float _rotationSpeed = 1f;
+    
     private Item _item;
 
     public void TakeItem(Item item)
@@ -32,5 +30,3 @@ public class LootItemHolder : MonoBehaviour
         _itemTransform.Rotate(0, amount, 0);
     }
 }
-
-

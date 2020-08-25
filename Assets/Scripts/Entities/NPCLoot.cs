@@ -1,21 +1,18 @@
-﻿using NSubstitute.Core;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Inventory))]
-public class NPCLoot : MonoBehaviour
+public class NpcLoot : MonoBehaviour
 {
     [SerializeField] private Item[] _itemPrefabs;
-
-
+    
     private Inventory _inventory;
     private EntityStateMachine _entityStateMachine;
 
-    // Awake gets called before start
     private void Start()
     {
         _entityStateMachine = GetComponent<EntityStateMachine>();
         _entityStateMachine.OnEntityStateChanged += HandleEntityStateChanged;
-
+        
         _inventory = GetComponent<Inventory>();
 
         foreach (var itemPrefab in _itemPrefabs)
@@ -29,9 +26,7 @@ public class NPCLoot : MonoBehaviour
     {
         Debug.Log($"HandleEntityStateChanged {state.GetType()}");
         if (state is Dead)
-        {
             DropLoot();
-        }
     }
 
     private void DropLoot()
@@ -39,10 +34,9 @@ public class NPCLoot : MonoBehaviour
         foreach (var item in _inventory.Items)
         {
             LootSystem.Drop(item, transform);
-            // var lootItemHolder = FindObjectOfType<LootItemHolder>();
-            // lootItemHolder.TakeItem(item);
+//            var lootItemHolder = FindObjectOfType<LootItemHolder>();
+//            lootItemHolder.TakeItem(item);
         }
-
         _inventory.Items.Clear();
     }
 }

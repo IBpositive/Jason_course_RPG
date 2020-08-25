@@ -1,16 +1,15 @@
-﻿using System;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UIInventorySlot : MonoBehaviour, IPointerDownHandler, IEndDragHandler, IDragHandler
 {
-    public event Action<UIInventorySlot> OnSlotClicked; 
+    public event Action<UIInventorySlot> OnSlotClicked;
     
     [SerializeField] private Image _image;
-    
-    public IItem Item { get; private set; }
 
+    public IItem Item { get; private set; }
     
     public bool IsEmpty => Item == null;
     public Sprite Icon => _image.sprite;
@@ -37,18 +36,10 @@ public class UIInventorySlot : MonoBehaviour, IPointerDownHandler, IEndDragHandl
     {
         var droppedOnSlot = eventData.pointerCurrentRaycast.gameObject?.GetComponentInParent<UIInventorySlot>();
         if (droppedOnSlot != null)
-        {
             droppedOnSlot.OnPointerDown(eventData);
-        }
         else
-        {
             OnPointerDown(eventData);
-        }
     }
 
-    // This function is needed, but doesn't need to do anything.
-    public void OnDrag(PointerEventData eventData)
-    {
-        
-    }
+    public void OnDrag(PointerEventData eventData) { }
 }

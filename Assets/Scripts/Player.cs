@@ -19,23 +19,17 @@ public class Player : MonoBehaviour
     private void MoveModeTogglePressed()
     {
         if (_mover is NavmeshMover)
-        {
             _mover = new Mover(this);
-        }
         else
-        {
             _mover = new NavmeshMover(this);
-        }
     }
 
     private void Update()
     {
         if (Pause.Active)
-        {
             return;
-        }
-
-        _mover.Tick();
-        _rotator.Tick();
+        
+       _mover.Tick();
+       _rotator.Tick();
     }
 }

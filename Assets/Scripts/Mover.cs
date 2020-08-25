@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.AI;
 
 public class Mover : IMover
@@ -19,5 +19,4 @@ public class Mover : IMover
         Vector3 movement = _player.transform.rotation * movementInput;
         _characterController.SimpleMove(movement);
     }
-    
 }

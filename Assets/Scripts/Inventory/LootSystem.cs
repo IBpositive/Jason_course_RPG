@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,20 +7,16 @@ using UnityEngine.AddressableAssets;
 public class LootSystem : MonoBehaviour
 {
     [SerializeField] private AssetReference _lootItemHolderPrefab;
-
+    
     private static LootSystem _instance;
     private static Queue<LootItemHolder> _lootItemHolders = new Queue<LootItemHolder>();
 
     private void Awake()
     {
         if (_instance != null)
-        {
             Destroy(gameObject);
-        }
         else
-        {
             _instance = this;
-        }
     }
 
     public static void Drop(Item item, Transform droppingTransform)
@@ -42,9 +37,9 @@ public class LootSystem : MonoBehaviour
     {
         var operation = _lootItemHolderPrefab.InstantiateAsync();
         yield return operation;
-
+        
         var lootItemHolder = operation.Result.GetComponent<LootItemHolder>();
-
+        
         AssignItemToHolder(lootItemHolder, item, droppingTransform);
     }
 
@@ -52,7 +47,6 @@ public class LootSystem : MonoBehaviour
     {
         lootItemHolder.TakeItem(item);
 
-        // need to cache this point because it doesn't have a y axis.
         Vector2 randomCirclePoint = UnityEngine.Random.insideUnitCircle * 3f;
         Vector3 randomPosition = droppingTransform.position + new Vector3(randomCirclePoint.x, 0, randomCirclePoint.y);
 

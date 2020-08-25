@@ -22,11 +22,11 @@ public class Entity : MonoBehaviour, ITakeHits
         }
         else
         {
-            HandleNonLeathalHit();
+            HandleNonLethalHit();
         }
     }
 
-    private void HandleNonLeathalHit()
+    private void HandleNonLethalHit()
     {
         Debug.Log("Took non-lethal damage");
     }

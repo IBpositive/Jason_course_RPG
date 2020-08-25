@@ -1,5 +1,3 @@
-﻿// 6d
-
 using UnityEngine;
 
 public class ItemRaycaster : ItemComponent
@@ -7,8 +5,8 @@ public class ItemRaycaster : ItemComponent
     [SerializeField] private float _delay = 0.1f;
     [SerializeField] private float _range = 10f;
     [SerializeField] private int _damage = 1;
-
-    private RaycastHit[] _results = new RaycastHit[10];
+    
+    private RaycastHit[] _results = new RaycastHit[100];
     private int _layermask;
 
     private void Awake()
@@ -25,8 +23,7 @@ public class ItemRaycaster : ItemComponent
 
         RaycastHit nearest = new RaycastHit();
         double nearestDistance = double.MaxValue;
-
-
+        
         for (int i = 0; i < hits; i++)
         {
             var distance = Vector3.Distance(transform.position, _results[i].point);
@@ -42,7 +39,5 @@ public class ItemRaycaster : ItemComponent
             var takeHits = nearest.collider.GetComponent<ITakeHits>();
             takeHits?.TakeHit(_damage);
         }
-
-
     }
 }

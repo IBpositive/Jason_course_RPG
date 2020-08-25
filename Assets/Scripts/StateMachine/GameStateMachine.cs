@@ -9,7 +9,7 @@ public class GameStateMachine : MonoBehaviour
     public static event Action<IState> OnGameStateChanged;
 
     private static GameStateMachine _instance;
-
+    
     private StateMachine _stateMachine;
     public Type CurrentStateType => _stateMachine.CurrentState.GetType();
 
@@ -18,12 +18,14 @@ public class GameStateMachine : MonoBehaviour
         if (_instance != null)
         {
             Destroy(gameObject);
+            Debug.Log("Destroyed GameStateMachine On Awake");
             return;
         }
 
         _instance = this;
-        DontDestroyOnLoad(gameObject);
 
+        DontDestroyOnLoad(gameObject);
+        
         _stateMachine = new StateMachine();
         _stateMachine.OnStateChanged += state => OnGameStateChanged?.Invoke(state);
 
@@ -31,23 +33,25 @@ public class GameStateMachine : MonoBehaviour
         var loading = new LoadLevel();
         var play = new Play();
         var pause = new Pause();
-
+        
         _stateMachine.SetState(menu);
-
+        
         _stateMachine.AddTransition(menu, loading, () => PlayButton.LevelToLoad != null);
         _stateMachine.AddTransition(loading, play, loading.Finished);
         _stateMachine.AddTransition(play, pause, () => PlayerInput.Instance.PausePressed);
         _stateMachine.AddTransition(pause, play, () => PlayerInput.Instance.PausePressed);
-        // Buttons in Pause menu are broke atm and I'm not sure why. 
-        // In the mean time the restart function has been binded to a keycode. Still needs to be paused first.
         _stateMachine.AddTransition(pause, menu, () => RestartButton.Pressed);
-        // was used for debugging
-        //_stateMachine.AddTransition(pause, menu, () => Input.GetKeyDown(KeyCode.L));
     }
 
     private void Update()
     {
         _stateMachine.Tick();
+    }
+
+    private void OnDestroy()
+    {
+        _stateMachine?.SetState(null);
+        Debug.Log("Destroyed GameStateMachine");
     }
 }
 
@@ -86,9 +90,9 @@ public class Play : IState
 public class LoadLevel : IState
 {
     public bool Finished() => _operations.TrueForAll(t => t.isDone);
-
+    
     private List<AsyncOperation> _operations = new List<AsyncOperation>();
-
+    
     public void Tick()
     {
     }
@@ -108,7 +112,7 @@ public class LoadLevel : IState
 public class Pause : IState
 {
     public static bool Active { get; private set; }
-
+    
     public void Tick()
     {
     }

@@ -15,19 +15,15 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_Data:
     m_SerializedData: []
-  m_GUID: da18cf9810ec7314a8bc6b3d32d34371
+  m_GUID: c61551924d0800e42943568891e9de6e
   m_SerializeEntries:
-  - m_GUID: 794efbfff14e74b4bbbd2cc0fa142cad
+  - m_GUID: a30d2ce813112ad45bb33f7d0b426f5d
     m_Address: LootItemHolder.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 1509290412150474985, guid: 794efbfff14e74b4bbbd2cc0fa142cad,
-      type: 3}
-    m_TargetAsset: {fileID: 1509290412150474985, guid: 794efbfff14e74b4bbbd2cc0fa142cad,
-      type: 3}
   m_ReadOnly: 0
-  m_Settings: {fileID: 11400000, guid: 78c4b500c2c87b24181cb9421e672fbe, type: 2}
+  m_Settings: {fileID: 11400000, guid: 272457145fe5b1343a60376f0b05efc5, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 3e114aaa702605947b53b7ddf654554c, type: 2}
-    - {fileID: 11400000, guid: b4137e3ac02c6db4f87043b6c13fda7f, type: 2}
+    - {fileID: 11400000, guid: 2eaf9a72988809d489eea56bdca55954, type: 2}
+    - {fileID: 11400000, guid: 5eee8513fe0642345b9a9400e9f49c43, type: 2}
