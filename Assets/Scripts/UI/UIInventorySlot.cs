@@ -13,9 +13,11 @@ public class UIInventorySlot :
     [SerializeField] private Image _selectedImage;
     [SerializeField] private Image _focusedImage;
     [SerializeField] private int _sortIndex;
+    [SerializeField] private SlotType _slotType;
 
-    
-    
+
+    public SlotType SlotType => _slotType;
+
     public IItem Item { get; private set; }
     
     public bool IsEmpty => Item == null;

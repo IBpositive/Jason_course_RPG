@@ -521,6 +521,7 @@ MonoBehaviour:
   _selectedImage: {fileID: 7970832243910568674}
   _focusedImage: {fileID: 7554042452939569211}
   _sortIndex: 1
+  _slotType: 0
 --- !u!1 &7904087876744505709
 GameObject:
   m_ObjectHideFlags: 0

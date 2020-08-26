@@ -9,4 +9,5 @@ public interface IItem
     CrosshairDefinition CrosshairDefinition { get; }
     UseAction[] Actions { get; }
     StatMod[] StatMods { get; }
+    SlotType SlotType { get; }
 }

@@ -368,7 +368,7 @@ PrefabInstance:
     - target: {fileID: 6745534691779303989, guid: 2fa261c2e0e0cfc488f33de7a0c4f906,
         type: 3}
       propertyPath: m_Name
-      value: Shotgun - 2 (1)
+      value: Shotgun - Secondary
       objectReference: {fileID: 0}
     - target: {fileID: 7911415819656863872, guid: 2fa261c2e0e0cfc488f33de7a0c4f906,
         type: 3}
@@ -400,6 +400,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _statMods.Array.data[0].Value
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7911415819656863872, guid: 2fa261c2e0e0cfc488f33de7a0c4f906,
+        type: 3}
+      propertyPath: _slotType
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2fa261c2e0e0cfc488f33de7a0c4f906, type: 3}
@@ -793,6 +798,7 @@ MonoBehaviour:
   _actions: []
   _icon: {fileID: 0}
   _statMods: []
+  _slotType: 0
 --- !u!65 &1054687035
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1096,6 +1102,11 @@ PrefabInstance:
     - target: {fileID: 7911415819656863872, guid: 2fa261c2e0e0cfc488f33de7a0c4f906,
         type: 3}
       propertyPath: _statMods.Array.data[0].Value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7911415819656863872, guid: 2fa261c2e0e0cfc488f33de7a0c4f906,
+        type: 3}
+      propertyPath: _slotType
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7979244249173836022, guid: 2fa261c2e0e0cfc488f33de7a0c4f906,

@@ -9,6 +9,8 @@ public class ItemEditor : Editor
     {
         Item item = (Item) target;
 
+        DrawSlotType(item);
+        
         DrawIcon(item);
 
         DrawCrosshair(item);
@@ -16,6 +18,14 @@ public class ItemEditor : Editor
         DrawActions(item);
 
         DrawStatMods(item);
+    }
+
+    private void DrawSlotType(Item item)
+    {
+        using (var slotTypeProperty = serializedObject.FindProperty("_slotType"))
+        {
+            slotTypeProperty.enumValueIndex = (int) (SlotType) EditorGUILayout.EnumPopup((SlotType) slotTypeProperty.enumValueIndex, GUILayout.Width(120));
+        }
     }
 
     private void DrawIcon(Item item)
