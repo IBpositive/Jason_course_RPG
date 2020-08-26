@@ -197,7 +197,7 @@ namespace PlayTests
 
         public static UIInventoryPanel GetInventoryPanel()
         {
-            var prefab = AssetDatabase.LoadAssetAtPath<UIInventoryPanel>("Assets/Prefabs/UI/InventoryPanel.prefab");
+            var prefab = AssetDatabase.LoadAssetAtPath<UIInventoryPanel>("Assets/Prefabs/UI/Inventory Panels.prefab");
             return Object.Instantiate(prefab);
         }
     }

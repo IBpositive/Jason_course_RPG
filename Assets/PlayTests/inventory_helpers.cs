@@ -7,7 +7,7 @@ namespace PlayTests
     {
         public static UIInventoryPanel GetInventoryPanelWithItems(int numberOfItems)
         {
-            var prefab = AssetDatabase.LoadAssetAtPath<UIInventoryPanel>("Assets/Prefabs/UI/InventoryPanel.prefab");
+            var prefab = AssetDatabase.LoadAssetAtPath<UIInventoryPanel>("Assets/Prefabs/UI/Inventory Panels.prefab");
             var panel = Object.Instantiate(prefab);
             var inventory = GetInventory(numberOfItems);
             panel.Bind(inventory);
