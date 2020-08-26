@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+
 public class Inventory : MonoBehaviour
 {
-    public const int DEFAULT_INVENTORY_SIZE = 29;
+    public const int GENERAL_INVENTORY_SIZE = 25;
     
     public event Action<IItem> ActiveItemChanged;
     public event Action<Item> ItemPickedUp;
@@ -16,15 +17,30 @@ public class Inventory : MonoBehaviour
     
     [SerializeField] private Transform _rightHand;
     
-    private Item[] _items = new Item[DEFAULT_INVENTORY_SIZE];
+    public List<InventorySlot> Slots = new List<InventorySlot>();
     private Transform _itemRoot;
     
     public IItem ActiveItem { get; private set; }
-    public List<Item> Items => _items.ToList();
-    public int Count => _items.Count(t => t != null);
+    public List<Item> Items => Slots.Select(t=> t.Item).ToList();
+    public int Count => Slots.Count(t => t != null);
 
     private void Awake()
     {
+        for (int i = 0; i < GENERAL_INVENTORY_SIZE; i++)
+        {
+            Slots.Add(new InventorySlot(SlotType.General));
+        }
+
+        var slotTypes = (SlotType[])Enum.GetValues(typeof(SlotType));
+
+        foreach (var slotType in slotTypes)
+        {
+            if (slotType != SlotType.General)
+            {
+                Slots.Add(new InventorySlot(slotType));
+            }
+        }
+        
         _itemRoot = new GameObject("Items").transform;
         _itemRoot.transform.SetParent(transform);
     }
@@ -37,7 +53,7 @@ public class Inventory : MonoBehaviour
         if (slot.HasValue == false)
             return;
 
-        _items[slot.Value] = item;
+        Slots[slot.Value].SetItem(item);
         item.transform.SetParent(_itemRoot);
         ItemPickedUp?.Invoke(item);
         item.WasPickedUp = true;
@@ -47,9 +63,9 @@ public class Inventory : MonoBehaviour
 
     private int? FindFirstAvailableSlot()
     {
-        for (int i = 0; i < _items.Length; i++)
+        for (int i = 0; i < Slots.Count; i++)
         {
-            if (_items[i] == null)
+            if (Slots[i] == null)
                 return i;
         }
 
@@ -78,14 +94,14 @@ public class Inventory : MonoBehaviour
 
     public Item GetItemInSlot(int slot)
     {
-        return _items[slot];
+        return Slots[slot].Item;
     }
 
     public void Move(int sourceSlot, int destinationSlot)
     {
-        var destinationItem = _items[destinationSlot];
-        _items[destinationSlot] = _items[sourceSlot];
-        _items[sourceSlot] = destinationItem;
+        var destinationItem = Slots[destinationSlot];
+        Slots[destinationSlot] = Slots[sourceSlot];
+        Slots[sourceSlot] = destinationItem;
 
         OnItemChanged?.Invoke(destinationSlot);
         OnItemChanged?.Invoke(sourceSlot);

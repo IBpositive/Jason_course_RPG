@@ -14,6 +14,7 @@ public class UIInventorySlot :
     [SerializeField] private Image _focusedImage;
     [SerializeField] private int _sortIndex;
     [SerializeField] private SlotType _slotType;
+    private InventorySlot _inventorySlot;
 
 
     public SlotType SlotType => _slotType;
@@ -87,5 +88,21 @@ public class UIInventorySlot :
         {
             _focusedImage.enabled = false;
         }
+    }
+
+    public void Bind(InventorySlot inventorySlot)
+    {
+        if (_inventorySlot != null)
+        {
+            _inventorySlot.ItemChanged -= HandleItemChanged;
+        }
+        
+        _inventorySlot = inventorySlot;
+        _inventorySlot.ItemChanged += HandleItemChanged;
+    }
+
+    private void HandleItemChanged()
+    {
+        SetItem(_inventorySlot.Item);
     }
 }
